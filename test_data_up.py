@@ -29,7 +29,7 @@ def get_ifdb(db, host='localhost', port=8086, user='Hyunjun', passwd='Wjdgytjs61
 
 ##########################################################################################
 def my_test(ifdb):
-    for i in range(20):
+    while 1:
         json_body = [
         ]
         tablename = 'table03'
