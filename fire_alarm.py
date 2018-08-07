@@ -23,13 +23,21 @@ predict = clf.predict(data_test)
 #test out
 ac_score = metrics.accuracy_score(label_test, predict)
 # cl_report + metrics.classification_report(label_test, prediction)
-
-a=input("temperature : ")
-b=input("humidity : ")
-
-print("recap",a,b)
 print("Model occuracy =",ac_score)
-#print(clf.predict([[int(a) ,int(b)]]))
-s=clf.predict([[int(a) ,int(b)]])
-print(s)
-# print("report =\n", cl_report)
+
+test_set = pd.read_csv("test_set.csv")
+#test_data = test_set[["temperature", "humidity"]]
+
+for line in range(0,len(test_set)):
+
+    print("line num:",line)
+
+    a=test_set['temperature'][line]
+    b=test_set['humidity'][line]
+
+    print("recap",a,b)
+    #print(clf.predict([[int(a) ,int(b)]]))
+    s=clf.predict([[int(a) ,int(b)]])
+    print(s)
+    # print("report =\n", cl_report)
+
