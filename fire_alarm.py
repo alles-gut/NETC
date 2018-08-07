@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn import svm, metrics
 from sklearn.model_selection import train_test_split
+import os
 
 #reading data
 csv = pd.read_csv("data.csv")
@@ -25,8 +26,11 @@ ac_score = metrics.accuracy_score(label_test, predict)
 # cl_report + metrics.classification_report(label_test, prediction)
 print("Model occuracy =",ac_score)
 
+#get test_set.csv file from influxdb
+os.system('influx -database tstest -format csv -execute \'select * from table03\' > test_set.csv')
+print("Finish querying")
+
 test_set = pd.read_csv("test_set.csv")
-#test_data = test_set[["temperature", "humidity"]]
 
 for line in range(0,len(test_set)):
 
