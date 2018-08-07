@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn import svm, metrics
 from sklearn.model_selection import train_test_split
 import os
+import time
 
 #reading data
 csv = pd.read_csv("data.csv")
@@ -26,22 +27,25 @@ ac_score = metrics.accuracy_score(label_test, predict)
 # cl_report + metrics.classification_report(label_test, prediction)
 print("Model occuracy =",ac_score)
 
-#get test_set.csv file from influxdb
-os.system('influx -database tstest -format csv -execute \'select * from table03\' > test_set.csv')
-print("Finish querying")
+while 1:
 
-test_set = pd.read_csv("test_set.csv")
+    #get test_set.csv file from influxdb
+    os.system('influx -database tstest -format csv -execute \'select * from table03 WHERE time > now() - 10s\' > test_set.csv')
+    print("Finish querying")
 
-for line in range(0,len(test_set)):
+    test_set = pd.read_csv("test_set.csv")
 
-    print("line num:",line)
+    for line in range(0,len(test_set)):
 
-    a=test_set['temperature'][line]
-    b=test_set['humidity'][line]
+        print("line num:",line)
 
-    print("recap",a,b)
-    #print(clf.predict([[int(a) ,int(b)]]))
-    s=clf.predict([[int(a) ,int(b)]])
-    print(s)
-    # print("report =\n", cl_report)
+        a=test_set['temperature'][line]
+        b=test_set['humidity'][line]
+
+        print("recap",a,b)
+        #print(clf.predict([[int(a) ,int(b)]]))
+        s=clf.predict([[int(a) ,int(b)]])
+        print(s)
+        # print("report =\n", cl_report)
+    time.sleep(10)
 
