@@ -47,5 +47,10 @@ while 1:
         s=clf.predict([[int(a) ,int(b)]])
         print(s)
         # print("report =\n", cl_report)
-    time.sleep(10)
+
+        if __name__ == '__main__':
+            if str(s) == '[\'on\']':
+                print('alarm has sent')
+
+    time.sleep(5)
 
